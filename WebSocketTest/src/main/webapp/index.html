@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Testing websockets</title>
+</head>
+<body>
+	<div>
+		<input type="submit" value="SendMessage" onclick="start()" />
+	</div>
+	<div id="messages"></div>
+	<script type="text/javascript">
+		function GetRandomNum(Min,Max){   
+			var Range = Max - Min;   
+			var Rand = Math.random();   
+			return(Min + Math.round(Rand * Range));   
+		}   
+		var num = GetRandomNum(1,10000);   
+		var webSocket = 
+			new WebSocket('ws://172.16.9.7:8080/WebSocketTest/websocket/' + num);
+		webSocket.onerror = function(event) {
+			onError(event);
+		};
+
+		webSocket.onopen = function(event) {
+			onOpen(event);
+		};
+
+		webSocket.onmessage = function(event) {
+			onMessage(event);
+		};
+
+		function onMessage(event) {
+			document.getElementById('messages').innerHTML 
+				+= '<br />' + event.data;
+		}
+
+		function onOpen(event) {
+			document.getElementById('messages').innerHTML 
+				= 'Connection established';
+		}
+
+		function onError(event) {
+			//alert(event.data);
+		}
+
+		function start() {
+			webSocket.send('hello');
+			return false;
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Testing websockets</title>
+</head>
+<body>
+	<div>
+		<input type="text" id="text_id"/><input type="submit" value="SendMessage" onclick="start()" />
+	</div>
+	<div id="messages"></div>
+	<script type="text/javascript">
+		//var webSocket = new Array();
+		/*
+		for(i=1;i<10;i++){
+			//alert(webSocket[i]);
+			webSocket[i] = new WebSocket('ws://localhost:8080/WebSocketTest/websocket/' + i);
+			webSocket[i].onmessage = function(event) {
+			onMessage(event);
+		    };
+		}
+		*/
+		function start(){
+			var socketSessionId = document.getElementById("text_id").value;
+			var webSocket=new WebSocket('ws://localhost:8080/WebSocketTest/websocket/' + socketSessionId);
+			webSocket.onmessage = function(event) {
+				onMessage(event);
+		    };
+			//webSocket[socketSessionId].send('hello from ' + socketSessionId);
+			
+			//webSocket[socketSessionId].onmessage = function(event) {
+			//onMessage(event);
+		    //};
+		}
+		function onMessage(event) {
+			document.getElementById('messages').innerHTML 
+				+= '<br />' + event.data;
+		}
+	</script>
+</body>
+</html>
