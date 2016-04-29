@@ -7,7 +7,7 @@ import java.util.Set;
 
 /**
  * @Description: WebSocket工具类
- * @author malin@tsinghuabigdata.com
+ * 
  * @date 2014-8-21下午1:18:05
  */
 public class WebSocketMessagePoolUtil {
